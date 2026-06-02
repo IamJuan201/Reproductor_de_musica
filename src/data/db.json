@@ -1,0 +1,25 @@
+{
+    "users" : [
+        {
+            "account" :"IamJuan201",
+            "email": "juan201@gmail.com",
+            "password": "123456",
+            "role": "admin"
+        },
+        {
+            "account" :"client",
+            "email": "client201@gmail.com",
+            "password": "123",
+            "role": "client"
+        }
+    ],
+
+    "songs" : [
+        {
+            "name" : "Billie Jean",
+            "author" : "Michael Jackson",
+            "album-img" : "resources/img/thriller-album.png",
+            "audio" : "resources/audio/"
+        }
+    ]
+}
