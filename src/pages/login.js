@@ -1,142 +1,139 @@
-import { router } from '../router.js';
+import { router } from '../../router.js';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Login = {
     render() {
         return `
-        <div class="bg-surface-container-lowest text-on-surface min-h-screen flex flex-col">
-              <main class="flex-grow flex items-center justify-center px-gutter py-xxl">
-                <div class="w-full max-w-[440px] space-y-xl">
+        <div style="min-height:100vh;background:#0a0a0f;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;position:relative;overflow:hidden;">
+          
+          <!-- Fondo decorativo tipo Spotify -->
+          <div style="position:absolute;top:-200px;left:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(138,43,226,0.18) 0%,transparent 70%);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(100,20,180,0.12) 0%,transparent 70%);pointer-events:none;"></div>
 
-                  <!-- Título de la app -->
-                  <div class="text-center space-y-md">
-                    <h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Riwiflow</h1>
-                    <p class="font-body-md text-body-md text-on-surface-variant">Sign in to your professional workspace</p>
-                  </div>
-
-                  <!-- Caja del formulario -->
-                  <div class="bg-surface-container-lowest border border-outline-variant p-xl rounded-xl space-y-lg transition-all">
-                    <form class="space-y-lg" id="loginForm" onsubmit="return false;">
-
-                      <!-- Campo: Email -->
-                      <div class="space-y-sm">
-                        <label class="font-label-md text-label-md text-on-surface" for="email">Email address</label>
-                        <div class="relative">
-                          <input
-                            class="w-full px-md py-md bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface input-focus-ring transition-all placeholder:text-outline"
-                            id="email" name="email" placeholder="name@company.com" required type="email"
-                          />
-                        </div>
-                      </div>
-
-                      <!-- Campo: Contraseña -->
-                      <div class="space-y-sm">
-                        <div class="flex justify-between items-center">
-                          <label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
-                          <a class="font-label-md text-label-md text-primary hover:underline transition-all" href="#">Forgot password?</a>
-                        </div>
-                        <div class="relative">
-                          <input
-                            class="w-full px-md py-md bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface input-focus-ring transition-all placeholder:text-outline"
-                            id="password" name="password" placeholder="••••••••" required type="password"
-                          />
-                        </div>
-                      </div>
-
-                      <!-- Mensaje de error (oculto por defecto) -->
-                      <div id="loginError" class="text-error font-body-sm text-body-sm hidden">
-                        Invalid email or password.
-                      </div>
-
-                      <!-- Botón de Login -->
-                      <div class="pt-sm">
-                        <button
-                          class="w-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md py-md px-lg rounded-lg transition-all active:scale-[0.98] duration-150 flex items-center justify-center gap-sm"
-                          type="submit"
-                        >
-                          Login
-                          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                        </button>
-                      </div>
-                    </form>
-
-                    <!-- Separador -->
-                    <div class="relative py-sm">
-                      <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-outline-variant"></div>
-                      </div>
-                      <div class="relative flex justify-center text-label-sm">
-                        <span class="bg-surface-container-lowest px-md text-outline font-label-sm uppercase tracking-widest">or continue with</span>
-                      </div>
-                    </div>
-
-                    <!-- Botón Google (solo visual, no funciona) -->
-                    <div class="grid grid-cols-1 gap-md">
-                      <button class="w-full flex items-center justify-center gap-md py-md border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors duration-200">
-                        <img
-                          alt="Google"
-                          class="w-4 h-4 opacity-80"
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4MKWoYfBIsxFaqncSN9YxR9mdXQGZNMC1EJDT5yAh5A5R7NXO24MRfA2bF0BxpLFdOJLIlAof80HOr4HokeP6RalmMOUP2rfQdl3XiQ4NoHX37q7XV75Y8mHyjT-0PziGdPkI9qXCMmNzMVVN-ZQUdWwMo6nYIE9qAI22sos0F8nFKx2zlwN1HYzEky_3nI6UP8FAT6bwNH0p2-0Yi3teyjDUPvFHOJwCiAgh-b14qx97Qfr8mlseGFe9mamhHBn8i9WZVkS0Zdjc"
-                        />
-                        Sign in with Google
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- Link de registro (solo visual) -->
-                  <div class="text-center">
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">
-                      Don't have an account?
-                      <a class="text-primary font-label-md hover:underline" href="#">Create an account</a>
-                    </p>
-                  </div>
-                </div>
-              </main>
-
-              <!-- Fondo decorativo con difuminado -->
-              <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-                <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary-fixed/20 blur-[120px] rounded-full"></div>
-                <div class="absolute bottom-[-10%] left-[-10%] w-[30%] h-[30%] bg-primary-fixed/10 blur-[100px] rounded-full"></div>
-              </div>
+          <!-- Logo Riwiflow -->
+          <div style="margin-bottom:2.5rem;text-align:center;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:0.5rem;">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <circle cx="18" cy="18" r="18" fill="#7c3aed"/>
+                <ellipse cx="18" cy="22" rx="10" ry="2.5" stroke="white" stroke-width="2" fill="none"/>
+                <ellipse cx="18" cy="17" rx="7" ry="2" stroke="white" stroke-width="2" fill="none"/>
+                <ellipse cx="18" cy="12.5" rx="4" ry="1.5" stroke="white" stroke-width="2" fill="none"/>
+              </svg>
+              <span style="font-family:'Circular Std','Montserrat',sans-serif;font-size:2rem;font-weight:800;color:white;letter-spacing:-0.03em;">Riwiflow</span>
             </div>
+            <p style="color:#a0a0b0;font-size:0.875rem;letter-spacing:0.02em;">Reproduce tu música favorita</p>
+          </div>
+
+          <!-- Card del formulario -->
+          <div style="width:100%;max-width:420px;background:#111118;border-radius:12px;padding:2.5rem;border:1px solid rgba(255,255,255,0.06);">
+            
+            <h2 style="color:white;font-size:1.5rem;font-weight:700;text-align:center;margin-bottom:2rem;letter-spacing:-0.02em;">Inicia sesión en Riwiflow</h2>
+
+            <!-- Botón Google -->
+            <button id="googleBtn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:0.85rem;border-radius:500px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:white;font-size:0.9rem;font-weight:600;cursor:pointer;transition:border-color 0.2s,background 0.2s;margin-bottom:1.5rem;"
+              onmouseover="this.style.borderColor='rgba(255,255,255,0.4)';this.style.background='rgba(255,255,255,0.05)'"
+              onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.background='transparent'">
+              <img src="src/resources/img/google-icon.png" alt="Google" style="width:20px;height:20px;opacity:0.9;"/>
+              Continuar con Google
+            </button>
+
+            <!-- Separador -->
+            <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
+              <div style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></div>
+              <span style="color:#a0a0b0;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;">o</span>
+              <div style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></div>
+            </div>
+
+            <form id="loginForm" onsubmit="return false;" style="display:flex;flex-direction:column;gap:1.25rem;">
+              
+              <!-- Email -->
+              <div>
+                <label style="display:block;color:#a0a0b0;font-size:0.8rem;font-weight:600;letter-spacing:0.05em;margin-bottom:0.5rem;text-transform:uppercase;">Correo electrónico</label>
+                <input id="email" name="email" type="email" placeholder="name@domain.com" required
+                  style="width:100%;padding:0.85rem 1rem;background:#1a1a24;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:white;font-size:0.95rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s;box-sizing:border-box;"
+                  onfocus="this.style.borderColor='#7c3aed';this.style.boxShadow='0 0 0 3px rgba(124,58,237,0.15)'"
+                  onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"
+                />
+              </div>
+
+              <!-- Password -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                  <label style="color:#a0a0b0;font-size:0.8rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;">Contraseña</label>
+                  <a href="#" style="color:#b07fff;font-size:0.8rem;font-weight:600;text-decoration:none;"
+                    onmouseover="this.style.textDecoration='underline'"
+                    onmouseout="this.style.textDecoration='none'">¿Olvidaste tu contraseña?</a>
+                </div>
+                <input id="password" name="password" type="password" placeholder="••••••••" required
+                  style="width:100%;padding:0.85rem 1rem;background:#1a1a24;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:white;font-size:0.95rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s;box-sizing:border-box;"
+                  onfocus="this.style.borderColor='#7c3aed';this.style.boxShadow='0 0 0 3px rgba(124,58,237,0.15)'"
+                  onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"
+                />
+              </div>
+
+              <!-- Error -->
+              <div id="loginError" style="display:none;background:rgba(186,26,26,0.12);border:1px solid rgba(186,26,26,0.3);border-radius:6px;padding:0.75rem 1rem;color:#ff6b6b;font-size:0.875rem;">
+                Correo o contraseña incorrectos.
+              </div>
+
+              <!-- Submit -->
+              <button type="submit"
+                style="width:100%;padding:0.9rem;background:#7c3aed;border:none;border-radius:500px;color:white;font-size:0.95rem;font-weight:700;cursor:pointer;letter-spacing:0.03em;transition:background 0.15s,transform 0.1s;margin-top:0.25rem;"
+                onmouseover="this.style.background='#6d28d9'"
+                onmouseout="this.style.background='#7c3aed'"
+                onmousedown="this.style.transform='scale(0.98)'"
+                onmouseup="this.style.transform='scale(1)'">
+                Iniciar sesión
+              </button>
+            </form>
+          </div>
+
+          <!-- Link registro -->
+          <p style="margin-top:2rem;color:#a0a0b0;font-size:0.875rem;">
+            ¿No tienes cuenta?
+            <a href="#" style="color:white;font-weight:700;text-decoration:none;margin-left:4px;"
+              onmouseover="this.style.color='#b07fff'"
+              onmouseout="this.style.color='white'">Regístrate en Riwiflow</a>
+          </p>
+        </div>
         `;
     },
 
     mounted() {
-            const loginForm = document.getElementById('loginForm');
-    
-            loginForm.addEventListener('submit', async function(event) {
-                event.preventDefault();
+        const loginForm = document.getElementById('loginForm');
 
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
+        loginForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
 
-                const response = await fetch(`${API_URL}/users?email=${email}&password=${password}`);
-                const matchingUsers = await response.json();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-                if (matchingUsers.length === 0) {
-                    document.getElementById('loginError').classList.remove('hidden');
+            const response = await fetch(`${API_URL}/users?email=${email}&password=${password}`);
+            const matchingUsers = await response.json();
 
-                    setTimeout(function() {
-                        document.getElementById('loginError').classList.add('hidden');
-                    }, 3000);
-                    return;
-                }
+            if (matchingUsers.length === 0) {
+                const errorEl = document.getElementById('loginError');
+                errorEl.style.display = 'block';
+                setTimeout(function() {
+                    errorEl.style.display = 'none';
+                }, 3000);
+                return;
+            }
 
-                const user = matchingUsers[0];
-                const userWithoutPassword = {
-                    id: user.id,
-                    name: user.name,
-                    email: user.email,
-                    role: user.role
-                };
-                localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+            const user = matchingUsers[0];
+            const userWithoutPassword = {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            };
+            localStorage.setItem('user', JSON.stringify(userWithoutPassword));
 
-                history.pushState(null, null, '/dashboard');
-                router();
-            });
-        }
+            history.pushState(null, null, '/dashboard');
+            router();
+        });
+    }
 };
 
 export default Login;

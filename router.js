@@ -1,40 +1,38 @@
-import Login from "../Riwiflow-Kanban-main/src/pages/login";
+import Login from './src/pages/login.js';
+import menuPrincipal from './src/pages/menuPrincipal.js';
 
 const routes = {
-    '/' : Login,
-    'menu-principal': menuPrincipal
-}
+  '/':          Login,
+  '/login':     Login,
+  '/dashboard': menuPrincipal,
+};
 
 export function router() {
-    let currentPath = window.location.pathname;
+  const path = window.location.pathname;
+  const user = localStorage.getItem('user');
 
-    const savedUser = localStorage.getItem('user');
+  if (!user && path !== '/' && path !== '/login') {
+    history.replaceState(null, null, '/');
+    renderPage(Login);
+    return;
+  }
 
-    if (currentPath === '/' && savedUser) {
-        currentPath = '/menu-principal';
-        history.pushState(null, null, currentPath);
-    }
+  if (user && (path === '/' || path === '/login')) {
+    history.replaceState(null, null, '/dashboard');
+    renderPage(menuPrincipal);
+    return;
+  }
 
-    if (currentPath === '/menu-principal' && !savedUser) {
-        currentPath = '/';
-        history.pushState(null, null, currentPath);
-    }
-
-    const pageTitles = {
-        '/': 'Riwiflow - Login',
-        '/menu-principal': 'Menu principal - Riwiflow',
-    };
-
-    document.title = pageTitles[currentPath] || 'Riwiflow';
-
-    const pageToShow = routes[currentPath] || Login;
-
-    document.getElementById('app').innerHTML = pageToShow.render();
-
-    pageToShow.mounted();
+  const Page = routes[path] ?? Login;
+  renderPage(Page);
 }
 
-export function navigate(path) {
-    history.pushState(null, null, path);
-    router();
+function renderPage(Page) {
+  const app = document.getElementById('app');
+  app.innerHTML = Page.render();
+  if (typeof Page.mounted === 'function') {
+    Page.mounted();
+  }
 }
+
+window.addEventListener('popstate', router);
